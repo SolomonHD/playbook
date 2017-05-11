@@ -16,3 +16,4 @@
  - Trusted Digital Repository Checklist(?)
  - Developer Style Guide
  - Code Handoff
+ - [Client & Data Confidentiality](confidentiality.md)
