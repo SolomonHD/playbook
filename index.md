@@ -28,3 +28,6 @@ These are things that should be in place for every project
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
  - Code Handoff
+
+## Authentication
+1. [LDAP](authentication/ldap.md)
