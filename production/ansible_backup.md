@@ -16,10 +16,12 @@ The script requires Ansible 2.5.4, and the latest versions of boto, boto3, botoc
 The script requires an aws access/secret key and also a region. There are different ways of setting these values but the prefered method is environment variables.
 Create an .aws folder in the user's home directory. Create a file called credentials
 The inside of this file should look like:
+
 [backup\_profile\_name]
 aws\_access\_key\_id = ACCESS\_KEY\_HERE
 aws\_secret\_access\_key = SECRET\_KEY\_HERE
 
 Now this profile can be set with the AWS\_PROFILE variable, also the region you want the script to run under will need to be set by AWS\_REGION variable.
+
 export AWS\_PROFILE=backup\_profile\_name AWS\_REGION=us-east-1
 
