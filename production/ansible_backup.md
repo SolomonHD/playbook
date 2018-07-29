@@ -4,11 +4,11 @@ This document will  outline steps needed to run the new ansible AMI backup.
 ### 1. The Ansible script
 The ansible script is located at https://github.com/curationexperts/ami-backup-cm
 There are two aspects to the script:
-1. Create AMIs
+##### 1. Create AMIs
 The script will search for EC2 tagged with a tag named "NightlyBackup" which has a value of Yes.
 It will then stop these instances, create the AMI, then start the EC2s back up.
 When the AMI are created they are tagged with a "AMICreation" tag which simply has the day the AMI's were created.
-2. Delete Old AMIs
+##### 2.Delete Old AMIs
 The 2nd phase of the script searches AMI that have a AMICreation tag value of 30 days in the past. 
 It then deletes those AMI's and their associated snapshots.
 ### 2. Prequsites for Running the Script Locally
