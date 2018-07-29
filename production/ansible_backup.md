@@ -15,17 +15,21 @@ It then deletes those AMI's and their associated snapshots.
 The script requires Ansible 2.5.4, and the latest versions of boto, boto3, botocore, awscli. Prefered method of install is pip.
 The script requires an aws access/secret key and also a region. There are different ways of setting these values but the prefered method is environment variables.
 Create an .aws folder in the user's home directory. Create a file called credentials
+
 The inside of this file should look like:
 
 [backup\_profile\_name]
+
 aws\_access\_key\_id = ACCESS\_KEY\_HERE
+
 aws\_secret\_access\_key = SECRET\_KEY\_HERE
 
 Now this profile can be set with the AWS\_PROFILE variable, also the region you want the script to run under will need to be set by AWS\_REGION variable.
 
 export AWS\_PROFILE=backup\_profile\_name AWS\_REGION=us-east-1
 
-It is now possible to run the script.
+It is now possible to run the script a ansible-playbook main.yml command.
+
 ### 3. Running the Script on the Dedicated Ansible Server
 While the script can be ran locally for production it is better practice to run the script in a dedicated EC2. The EC2 can stay on 24/7 running the script whenever desired. This also creates a central place to look for logs relating to the script.
 
@@ -38,7 +42,9 @@ Currently the instance acting as the server is running Amazon Linux 2 and can be
 3. Access the crontab by the crontab -e command. You should add:
 
 AWS\_PROFILE=PROFILE\_NAME\_GOES\_HERE
+
 AWS\_REGION=REGION\_GOES\_HERE
+
 XX X * * * cd /opt/ansible\_scripts/ami-backup-cm && /usr/bin/git stash --include-untracked && /usr/bin/git pull; if ! out=`ansible-playbook -v /opt/ansible_scripts/ami-backup-cm/main.yml `; then echo $out; fi
 
 Fill in the XX's with a time, for example 30 3 * * *  will run at everyday at 3:30AM eastern time. Please be mindful of other cron's scheduled and try to put 10 minutes between runs, to help with log clarity.
