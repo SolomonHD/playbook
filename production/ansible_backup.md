@@ -45,6 +45,6 @@ AWS\_PROFILE=PROFILE\_NAME\_GOES\_HERE
 
 AWS\_REGION=REGION\_GOES\_HERE
 
-`XX X * * * cd /opt/ansible\_scripts/ami-backup-cm && /usr/bin/git stash --include-untracked && /usr/bin/git pull; if ! out=`ansible-playbook -v /opt/ansible_scripts/ami-backup-cm/main.yml `; then echo $out; fi`
+`` `XX X * * * cd /opt/ansible\_scripts/ami-backup-cm && /usr/bin/git stash --include-untracked && /usr/bin/git pull; if ! out=`ansible-playbook -v /opt/ansible_scripts/ami-backup-cm/main.yml `; then echo $out; fi` ``
 
 Fill in the XX's with a time, for example `30 3 * * *`  will run at everyday at 3:30AM eastern time. Please be mindful of other cron's scheduled and try to put 10 minutes between runs, to help with log clarity.
