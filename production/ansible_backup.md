@@ -27,6 +27,18 @@ export AWS\_PROFILE=backup\_profile\_name AWS\_REGION=us-east-1
 
 It is now possible to run the script.
 ### 3. Running the Script on the Dedicated Ansible Server
-While the script can we ran locally for production it is better practice to run the script in a dedicated EC2. The EC2 can stay on 24/7 running the script whenever desired. This also creates a central place to look for logs relating to the script.
+While the script can be ran locally for production it is better practice to run the script in a dedicated EC2. The EC2 can stay on 24/7 running the script whenever desired. This also creates a central place to look for logs relating to the script.
 
 Currently the instance acting as the server is running Amazon Linux 2 and can be reached at *34.228.242.138* as the *ec2-user*, the private key for logging in can be found in dce-hosting S3 bucket under the path *dce-util/general\_key.pem*
+
+1. Create an ansibleuser in IAM console for the account you wish the backup job to run. Then create an access/secret key pair for the ansible user.
+
+2. After logging in as ec2-user please add the access/secret key to the ~ec2-user/.aws/credentials file. Give it an appropriate profile name.
+
+3. Access the crontab by the crontab -e command. You should add:
+
+AWS\_PROFILE=PROFILE\_NAME\_GOES\_HERE
+AWS\_REGION=REGION\_GOES\_HERE
+XX X * * * cd /opt/ansible\_scripts/ami-backup-cm && /usr/bin/git stash --include-untracked && /usr/bin/git pull; if ! out=`ansible-playbook -v /opt/ansible_scripts/ami-backup-cm/main.yml `; then echo $out; fi
+
+Fill in the XX's with a time, for example 30 3 * * *  will run at everyday at 3:30AM eastern time. Please be mindful of other cron's scheduled and try to put 10 minutes between runs, to help with log clarity.
